@@ -29,3 +29,8 @@ public class CustomState : MonoBehaviourState
     }
 }
 ```
+
+* Switching a state anywhere from the app. The `StateController` and each state are singleton `Monobehaviour` classes.
+```C#
+ StateController.Instance.SwitchState(CustomState.Instance);
+```
