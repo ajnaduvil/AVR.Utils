@@ -7,12 +7,13 @@ namespace AVR.Utils
 {
     /// <summary>
     /// Singleton behaviour class, used for components that should only have one instance of the same inheritance hierarchy.
-    /// This supports inheriting singleton class.
+    /// This supports inheritance of the singleton class.
     /// <remarks>Singleton classes live on through scene transitions and will mark their 
     /// parent root GameObject with <see cref="Object.DontDestroyOnLoad"/></remarks>
+    /// This implementation is modified form Microsoft Holotoolkit's singleton implementation
     /// </summary>
     /// <typeparam name="T">The Singleton Type</typeparam>
-    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public class InheritableSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T instance;
 
@@ -29,16 +30,6 @@ namespace AVR.Utils
             {
                 if (!IsInitialized)
                 {
-                    //T[] objects = FindObjectsOfType<T>();
-                    //if (objects.Length == 1)
-                    //{
-                    //    instance = objects[0];
-                    //    DontDestroyOnLoad(instance.gameObject.transform.root.gameObject);
-                    //}
-                    //else if (objects.Length > 1)
-                    //{
-                    //    Debug.LogErrorFormat("Expected exactly 1 {0} but found {1}.", typeof(T).Name, objects.Length);
-                    //}
                     Debug.LogError($"Component {typeof(T)} is not initialized");
                 }
                 return instance;
