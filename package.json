@@ -1,7 +1,7 @@
 {
   "name": "com.avr.utils",
   "displayName": "AVR Utils",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "unity": "2019.3",
   "keywords": [
     "AVR",

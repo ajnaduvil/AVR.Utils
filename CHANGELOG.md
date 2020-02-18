@@ -9,3 +9,6 @@ This is the first release of AVR Utils.
 
 ## [1.0.1] - 2020-02-04
 Added singleton state machine
+
+## [1.1.0] - 2020-02-18
+Added Coroutine Invoker. Updated Documentation. Inheritable singleton and normal singleton implementations added	
