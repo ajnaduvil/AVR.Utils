@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace AVR.Utils.StateMachines
@@ -20,12 +21,21 @@ namespace AVR.Utils.StateMachines
             }
         }
 
+        /// <summary>
+        /// Switches the state to the new state
+        /// </summary>
+        /// <param name="newState"></param>
         public void SwitchState(MonoBehaviourState newState)
         {
+            if (currentState == newState)
+            {
+                Debug.LogWarning("Trying to switch to the current state");
+                return;
+            }
 
             if (newState == null)
             {
-                Debug.LogError("State argument passed is null");
+                throw new ArgumentNullException("Cannot switch to a null state");
             }
             if (currentState != null)
             {
@@ -34,12 +44,6 @@ namespace AVR.Utils.StateMachines
             previousState = currentState;
             currentState = newState;
             currentState.OnEnter();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

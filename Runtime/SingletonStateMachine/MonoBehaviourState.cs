@@ -4,7 +4,7 @@ using UnityEngine;
 using AVR.Utils.Extensions;
 namespace AVR.Utils.StateMachines
 {
-    public abstract class MonoBehaviourState : Singleton<MonoBehaviourState>
+    public abstract class MonoBehaviourState : InheritableSingleton<MonoBehaviourState>
     {
         /// <summary>
         /// Gameobjects to be set actvated on state enter
