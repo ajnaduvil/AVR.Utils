@@ -12,3 +12,6 @@ Added singleton state machine
 
 ## [1.1.0] - 2020-02-18
 Added Coroutine Invoker. Updated Documentation. Inheritable singleton and normal singleton implementations added	
+
+## [1.2.0] - 2020-02-18
+Added scene switcher.
