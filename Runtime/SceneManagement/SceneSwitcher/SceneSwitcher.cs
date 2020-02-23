@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,12 +12,12 @@ namespace AVR.Utils.SceneManagement
     /// </summary>
     public class SceneSwitcher : Singleton<SceneSwitcher>
     {
+        public Action<string> sceneChanged;
 
         public bool includeMainScene;
 
         private int totalScenesInBuild;
         private int currentLoadedSceneIndex;
-
 
         // Start is called before the first frame update
         protected override void Awake()
@@ -42,16 +43,6 @@ namespace AVR.Utils.SceneManagement
             StartCoroutine(PreviousSceneCoroutine());
         }
 
-        private IEnumerator NextSceneCoroutine()
-        {
-            var sceneIndexToLoad = currentLoadedSceneIndex + 1;
-            if (sceneIndexToLoad < totalScenesInBuild)
-            {
-                yield return LoadSceneCoroutine(sceneIndexToLoad);
-            }
-
-        }
-
         private IEnumerator PreviousSceneCoroutine()
         {
             var sceneIndexToLoad = currentLoadedSceneIndex - 1;
@@ -63,13 +54,14 @@ namespace AVR.Utils.SceneManagement
 
         private IEnumerator LoadSceneCoroutine(int index)
         {
-
             if (currentLoadedSceneIndex != index && index != 0)
             {
                 Debug.Log($"Loading scene with index {index}");
                 yield return SceneManager.UnloadSceneAsync(currentLoadedSceneIndex);
                 currentLoadedSceneIndex = index;
                 yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
+                var sceneName = SceneManager.GetSceneByBuildIndex(index).name;
+                sceneChanged?.Invoke(sceneName);
             }
             else
             {
