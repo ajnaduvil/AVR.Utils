@@ -43,6 +43,15 @@ namespace AVR.Utils.SceneManagement
             StartCoroutine(PreviousSceneCoroutine());
         }
 
+        private IEnumerator NextSceneCoroutine()
+        {
+            var sceneIndexToLoad = currentLoadedSceneIndex + 1;
+            if (sceneIndexToLoad < totalScenesInBuild)
+            {
+                yield return LoadSceneCoroutine(sceneIndexToLoad);
+            }
+        }
+
         private IEnumerator PreviousSceneCoroutine()
         {
             var sceneIndexToLoad = currentLoadedSceneIndex - 1;
