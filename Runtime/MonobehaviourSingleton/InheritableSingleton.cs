@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace AVR.Utils
 {
@@ -15,7 +16,7 @@ namespace AVR.Utils
     /// <typeparam name="T">The Singleton Type</typeparam>
     public class InheritableSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T instance;
+        private  T instance;
 
         /// <summary>
         /// Returns the Singleton instance of the classes type.
@@ -24,7 +25,7 @@ namespace AVR.Utils
         /// If more than one instance is found, we throw an error and
         /// no instance is returned.
         /// </summary>
-        public static T Instance
+        public  T Instance
         {
             get
             {
@@ -37,7 +38,7 @@ namespace AVR.Utils
         }
 
 
-        public static void AssertIsInitialized()
+        public  void AssertIsInitialized()
         {
             Debug.Assert(IsInitialized, string.Format("The {0} singleton has not been initialized.", typeof(T).Name));
         }
@@ -45,7 +46,7 @@ namespace AVR.Utils
         /// <summary>
         /// Returns whether the instance has been initialized or not.
         /// </summary>
-        public static bool IsInitialized
+        public  bool IsInitialized
         {
             get
             {
@@ -57,7 +58,7 @@ namespace AVR.Utils
         /// Awake and OnEnable safe way to check if a Singleton is initialized.
         /// </summary>
         /// <returns>The value of the Singleton's IsInitialized property</returns>
-        public static bool ConfirmInitialized()
+        public  bool ConfirmInitialized()
         {
             T access = Instance;
             return IsInitialized;
@@ -71,32 +72,31 @@ namespace AVR.Utils
         /// </summary>
         protected virtual void Awake()
         {
-
             var instances = FindObjectsOfType<T>().ToList();
+
+
             for (int i = 0; i < instances.Count; i++)
             {
-                if (this.GetType() != instances[i].GetType())
+                if (this.GetType() == instances[i].GetType())
                 {
-
-                    Debug.Log($"Removing {this.GetType()} != {instances[i].GetType()}");
-                    instances.Remove(instances[i]);
-                }
-            }
-            instance = instances[0];
-            instances.Remove(instance);
-            DontDestroyOnLoad(instance.gameObject);
-            //Handling multiple components in the same gameobject
-            foreach (var otherInstance in instances)
-            {
-                if (otherInstance != instance)
-                {
-                    if (Application.isEditor)
+                    if (this.GetInstanceID() == instances[i].GetInstanceID())
                     {
-                        DestroyImmediate(otherInstance);
+                        instance = instances[i];
                     }
                     else
                     {
-                        Destroy(otherInstance);
+                        Debug.Log($"Destroying {this.GetInstanceID()} != {instances[i].GetInstanceID()}");
+                        // instances.Remove(instances[i]);
+
+                        if (Application.isEditor)
+                        {
+                            DestroyImmediate(instances[i]);
+                        }
+                        else
+                        {
+                            Destroy(instances[i]);
+                        }
+
                     }
                 }
             }

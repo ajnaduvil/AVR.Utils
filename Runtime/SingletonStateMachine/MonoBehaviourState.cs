@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AVR.Utils.Extensions;
+using System.Linq;
 namespace AVR.Utils.StateMachines
 {
-    public abstract class MonoBehaviourState : InheritableSingleton<MonoBehaviourState>
+    public abstract class MonoBehaviourState : MonoBehaviour
     {
+
         /// <summary>
         /// Gameobjects to be set actvated on state enter
         /// </summary>
@@ -26,6 +28,7 @@ namespace AVR.Utils.StateMachines
 
         public virtual void OnEnter()
         {
+
             objectsTobeEnabled.ActivateAll(true);
             objectsTobeDisabled.ActivateAll(false);
             enableComponents.EnableAll(true);
