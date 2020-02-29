@@ -6,6 +6,7 @@ namespace AVR.Utils.StateMachines
 {
     public class StateController : Singleton<StateController>
     {
+        [HideInInspector]
         public MonoBehaviourState currentState;
         private MonoBehaviourState previousState;
 
