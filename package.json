@@ -6,5 +6,6 @@
   "keywords": ["AVR", "Utils"],
   "description": "Useful unity utility scripts and extensions for developers",
   "dependencies": {
-   }
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  }
 }
