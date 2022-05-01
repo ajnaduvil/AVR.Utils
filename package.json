@@ -1,7 +1,7 @@
 {
   "name": "com.avr.utils",
   "displayName": "AVR Utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2019.3",
   "keywords": ["AVR", "Utils"],
   "description": "Useful unity utility scripts and extensions for developers",
